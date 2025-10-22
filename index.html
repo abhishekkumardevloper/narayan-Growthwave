@@ -16,7 +16,8 @@
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
   :class="{'b eh': darkMode === true}">
 
- <header class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+<!-- ===== Header Start ===== -->
+<header class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
   @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
   <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
     <div class="vd to/4 tc wf yf" style="display:flex; align-items:center; gap:0.6rem;">
@@ -28,55 +29,57 @@
           Narayan GrowthWave
         </span>
       </a>
-        <!-- Hamburger Toggle BTN -->
-        <button class="po rc" @click="navigationOpen = !navigationOpen">
-          <span class="rc i pf re pd">
-            <span class="du-block h q vd yc">
-              <span class="rc i r s eh um tg te rd eb ml jl dl" :class="{ 'ue el': !navigationOpen }"></span>
-              <span class="rc i r s eh um tg te rd eb ml jl fl" :class="{ 'ue qr': !navigationOpen }"></span>
-              <span class="rc i r s eh um tg te rd eb ml jl gl" :class="{ 'ue hl': !navigationOpen }"></span>
-            </span>
-            <span class="du-block h q vd yc lf">
-              <span class="rc eh um tg ml jl el h na r ve yc" :class="{ 'sd dl': !navigationOpen }"></span>
-              <span class="rc eh um tg ml jl qr h s pa vd rd" :class="{ 'sd rr': !navigationOpen }"></span>
-            </span>
+
+      <!-- Hamburger Toggle BTN -->
+      <button class="po rc" @click="navigationOpen = !navigationOpen" aria-label="Toggle navigation">
+        <span class="rc i pf re pd">
+          <span class="du-block h q vd yc">
+            <span class="rc i r s eh um tg te rd eb ml jl dl" :class="{ 'ue el': !navigationOpen }"></span>
+            <span class="rc i r s eh um tg te rd eb ml jl fl" :class="{ 'ue qr': !navigationOpen }"></span>
+            <span class="rc i r s eh um tg te rd eb ml jl gl" :class="{ 'ue hl': !navigationOpen }"></span>
           </span>
-        </button>
-        <!-- Hamburger Toggle BTN -->
-      </div>
-
-      <div class="vd wo/4 sd qo f ho oo wf yf" :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }">
-        <nav>
-          <ul class="tc _o sf yo cg ep">
-            <li><a href="index.html" class="xl" :class="{ 'mk': page === 'home' }">Home</a></li>
-            <li><a href="index.html#features" class="xl">Features</a></li>
-            <li class="c i" x-data="{ dropdown: false }">
-              <a href="#!" class="xl tc wf yf bg" @click.prevent="dropdown = !dropdown"
-                :class="{ 'mk': page === 'blog-grid' || page === 'blog-single' || page === 'signin' || page === 'signup' || page === '404' }">
-                Pages
-
-                <svg :class="{ 'wh': dropdown }" class="th mm we fd pf" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512">
-                  <path
-                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                </svg>
-              </a>
-
-              <!-- Dropdown Start -->
-              <ul class="a" :class="{ 'tc': dropdown }">
-                <li><a href="blog-grid.html" class="xl" :class="{ 'mk': page === 'blog-grid' }">Blog Grid</a></li>
-                <li><a href="signin.html" class="xl" :class="{ 'mk': page === 'signin' }">Sign In</a></li>
-                <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">Sign Up</a></li>
-                
-              </ul>
-              <!-- Dropdown End -->
-            </li>
-            <li><a href="index.html#support" class="xl">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
+          <span class="du-block h q vd yc lf">
+            <span class="rc eh um tg ml jl el h na r ve yc" :class="{ 'sd dl': !navigationOpen }"></span>
+            <span class="rc eh um tg ml jl qr h s pa vd rd" :class="{ 'sd rr': !navigationOpen }"></span>
+          </span>
+        </span>
+      </button>
+      <!-- Hamburger Toggle BTN -->
     </div>
-  </header>
+
+    <div class="vd wo/4 sd qo f ho oo wf yf" :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }">
+      <nav>
+        <ul class="tc _o sf yo cg ep">
+          <li><a href="index.html" class="xl" :class="{ 'mk': page === 'home' }">Home</a></li>
+          <li><a href="index.html#features" class="xl">Features</a></li>
+          <li class="c i" x-data="{ dropdown: false }">
+            <a href="#!" class="xl tc wf yf bg" @click.prevent="dropdown = !dropdown"
+              :class="{ 'mk': page === 'blog-grid' || page === 'blog-single' || page === 'signin' || page === 'signup' || page === '404' }">
+              Pages
+              <svg :class="{ 'wh': dropdown }" class="th mm we fd pf" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512">
+                <path
+                  d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+              </svg>
+            </a>
+
+            <!-- Dropdown Start -->
+            <ul class="a" :class="{ 'tc': dropdown }">
+              <li><a href="blog-grid.html" class="xl" :class="{ 'mk': page === 'blog-grid' }">Blog Grid</a></li>
+             
+              <li><a href="signin.html" class="xl" :class="{ 'mk': page === 'signin' }">Sign In</a></li>
+              <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">Sign Up</a></li>
+             
+            </ul>
+            <!-- Dropdown End -->
+          </li>
+          <li><a href="index.html#support" class="xl">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+<!-- ===== Header End ===== -->
 
   <!-- ===== Header End ===== -->
 
@@ -102,7 +105,7 @@
               <a href="#support" class="ek jk lk gh gi hi rg ml il vc _d _l">Get Started Now</a>
 
               <span class="tc sf" style="margin-left:1rem;">
-                <a href="#support" class="inline-block ek xj kk wm"> Call us +91 98765 43210 </a>
+                <a href="#support" class="inline-block ek xj kk wm"> Call us +91 9905028510 </a>
                 <span class="inline-block">Mon–Sat: 9:00 AM – 7:00 PM</span>
               </span>
             </div>
@@ -765,7 +768,7 @@
 
             <div class="fb">
               <h4 class="wj kk wm cc">Email Address</h4>
-              <p><a href="mailto:contact@narayangrowthwave.com">contact@narayangrowthwave.com</a></p>
+              <p><a href="mailto:narayangrowthwave@gmail.com">contact@narayangrowthwave@gmail.com</a></p>
             </div>
             <div class="fb">
               <h4 class="wj kk wm cc">Office Location</h4>
@@ -773,7 +776,7 @@
             </div>
             <div class="fb">
               <h4 class="wj kk wm cc">Phone Number</h4>
-              <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+              <p><a href="tel:+919876543210">+91 9905028510</a></p>
             </div>
             <div class="fb">
               <h4 class="wj kk wm cc">Skype / Meetings</h4>
@@ -901,10 +904,7 @@
       <div class="ji gp">
         <div class="tc uf ap gg fp">
           <div class="animate_top zd/2 to/4">
-            <a href="index.html">
-              <img src="images/logo-light.svg" alt="Logo" class="om" />
-              <img src="images/logo-dark.svg" alt="Logo" class="xc nm" />
-            </a>
+            
 
             <p class="lc fb">Narayan GrowthWave — Digital marketing and web development that drives business results.</p>
 
