@@ -2584,33 +2584,39 @@ h1,  h2,  h3,  h4,  h5,  h6{
     line-height: 42px;
   }
 }
-/* ---------- Header logo override (fix huge-logo overlay) ---------- */
-header { z-index:1000; position:relative; } /* ensure header sits above page layers */
-
-.header-logo,
-.om {
-  max-width: 110px !important; /* adjust to taste */
-  width: auto !important;
-  height: auto !important;
-  display: inline-block !important;
-  object-fit: contain !important;
-  position: relative !important;
-  z-index: 1000 !important;
-}
-
-/* company name next to logo */
-.header-brand {
-  margin-left: .6rem;
-  font-weight: 700;
-  white-space: nowrap;
-  display: inline-block;
+/* Header brand: small logo left, company name horizontal */
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;            /* space between logo and name */
+  text-decoration: none;
   vertical-align: middle;
-  font-size: 1.15rem;
 }
 
-/* increase logo on larger screens */
+.header-logo {
+  width: 48px;            /* small logo on mobile */
+  height: 48px;
+  display: block;
+  object-fit: contain;
+  border-radius: 6px;     /* subtle rounding, remove if you don't want it */
+  z-index: 1000;
+}
+
+/* Company name styling */
+.header-brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1;
+  white-space: nowrap;
+  color: inherit;         /* inherits color from header (keeps theme consistent) */
+  transform: translateY(-1px); /* tiny vertical nudge for optical alignment */
+}
+
+/* Larger sizes for wider screens */
 @media (min-width: 1024px) {
-  .header-logo { max-width: 140px !important; }
-  .header-brand { font-size: 1.4rem; }
+  .header-logo { width: 64px; height: 64px; }
+  .header-brand { font-size: 1.35rem; }
 }
 
+/* Optional: slightly larger on hover for subtle feedback */
+.brand-link:hover .header-logo { transform: scale(1.03); transition: transform .18s ease; }
