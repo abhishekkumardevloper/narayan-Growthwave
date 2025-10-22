@@ -21,14 +21,20 @@
   @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
   <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
     <div class="vd to/4 tc wf yf" style="display:flex; align-items:center; gap:0.6rem;">
-      <a href="index.html" class="inline-flex items-center" aria-label="Narayan GrowthWave - Home">
-        <!-- single logo -->
-        <img class="om" src="images/Screenshot 2025-10-22 125814.png" alt="Narayan GrowthWave logo" />
-        <!-- company name next to logo -->
-        <span class="ml il fk vj zp or kk wm" style="margin-left:0.5rem; font-weight:700; white-space:nowrap;">
-          Narayan GrowthWave
-        </span>
-      </a>
+      <!-- single logo + company name (inline-size fix) -->
+<a href="index.html" class="inline-flex items-center" aria-label="Narayan GrowthWave - Home">
+  <img
+    class="om header-logo"
+    src="images/Screenshot 2025-10-21 221528.png"
+    alt="Narayan GrowthWave logo"
+    style="max-width:100px; width:auto; height:auto; object-fit:contain; display:inline-block; position:relative; z-index:1000;"
+  />
+  <span class="ml il fk vj zp or kk wm header-brand"
+        style="margin-left:0.6rem; font-weight:700; white-space:nowrap;">
+    Narayan GrowthWave
+  </span>
+</a>
+
 
       <!-- Hamburger Toggle BTN -->
       <button class="po rc" @click="navigationOpen = !navigationOpen" aria-label="Toggle navigation">
