@@ -16,16 +16,18 @@
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
   :class="{'b eh': darkMode === true}">
 
-  <!-- ===== Header Start ===== -->
-  <header class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
-    @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
-    <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
-      <div class="vd to/4 tc wf yf">
-        <a href="index.html">
-          <img class="om" src="images/Screenshot 2025-10-21 221528.png" alt="Logo Light" />
-          <img class="xc nm" src="images/Screenshot 2025-10-21 221556.png" alt="Logo Dark" />
-        </a>
-
+ <header class="g s r vd ya cj" :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+  @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
+  <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
+    <div class="vd to/4 tc wf yf" style="display:flex; align-items:center; gap:0.6rem;">
+      <a href="index.html" class="inline-flex items-center" aria-label="Narayan GrowthWave - Home">
+        <!-- single logo -->
+        <img class="om" src="images/Screenshot 2025-10-21 221528.png" alt="Narayan GrowthWave logo" />
+        <!-- company name next to logo -->
+        <span class="ml il fk vj zp or kk wm" style="margin-left:0.5rem; font-weight:700; white-space:nowrap;">
+          Narayan GrowthWave
+        </span>
+      </a>
         <!-- Hamburger Toggle BTN -->
         <button class="po rc" @click="navigationOpen = !navigationOpen">
           <span class="rc i pf re pd">
