@@ -2584,4 +2584,33 @@ h1,  h2,  h3,  h4,  h5,  h6{
     line-height: 42px;
   }
 }
+/* ---------- Header logo override (fix huge-logo overlay) ---------- */
+header { z-index:1000; position:relative; } /* ensure header sits above page layers */
+
+.header-logo,
+.om {
+  max-width: 110px !important; /* adjust to taste */
+  width: auto !important;
+  height: auto !important;
+  display: inline-block !important;
+  object-fit: contain !important;
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
+/* company name next to logo */
+.header-brand {
+  margin-left: .6rem;
+  font-weight: 700;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1.15rem;
+}
+
+/* increase logo on larger screens */
+@media (min-width: 1024px) {
+  .header-logo { max-width: 140px !important; }
+  .header-brand { font-size: 1.4rem; }
+}
 
