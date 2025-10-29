@@ -6,26 +6,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Narayan GrowthWave — Digital Marketing & Website Development</title>
-   <style>
-     :root{
+  <style>
+
+    :root{
       --container-width:1200px;
       --gap:24px;
       --accent-shadow: 0 12px 30px rgba(15,23,42,0.12);
       --rounded:16px;
+      --accent:#6f5dff;
+      --muted:#7a7f86;
+      --bg:#ffffff;
+      --card:#f6f7fb;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --glass: rgba(255,255,255,0.7);
+      --radius: 14px;
+      --container: 1200px;
     }
 
-    /* Reset */
+    /* Reset + safety */
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
-    /* Prevent horizontal overflow globally (safe guard) */
-    body { overflow-x: hidden; }
+    html,body{height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    body { overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+    img, picture, video, svg { max-width:100%; height:auto; display:block; }
+
+    .site-container{ max-width:var(--container-width); margin:0 auto; padding:0 20px; box-sizing:border-box; }
+
+    /* ===== existing styles (kept & lightly adjusted) ===== */
 
     /* Section wrapper - clip any overflow so decorative parts won't push page width */
     .about-section{
       padding:48px 20px;
       background: #ffffff;
       position:relative;
-      /* crucial: clip any visual overflow that would increase width */
       overflow: hidden;
     }
 
@@ -52,8 +64,7 @@
       grid-template-columns: 1fr 1fr;
       gap:16px;
       align-items:end;
-      /* ensure internal absolutely positioned elements are confined */
-      overflow: visible; /* keep visible for overlapping inside section; section clips outside */
+      overflow: visible;
     }
 
     .stack{
@@ -65,7 +76,6 @@
       justify-content:center;
     }
 
-    /* Base image rules - never exceed container width */
     .stack img{
       display:block;
       max-width:100%;
@@ -84,7 +94,6 @@
       opacity:.9;
     }
 
-    /* Use clamp to ensure images scale but don't overflow */
     .main-img{
       width:clamp(180px, 50%, 420px);
       z-index:3;
@@ -92,12 +101,11 @@
       max-width: 100%;
     }
 
-    /* Keep small negative offsets small -- they'll be clipped by section if needed */
     .secondary-img{
       width:clamp(120px, 32%, 320px);
       z-index:2;
       position:absolute;
-      right: -2%;   /* reduced negative offset */
+      right: -2%;
       bottom: -2%;
       transform:rotate(-6deg) scale(.96);
       max-width: 45%;
@@ -107,7 +115,7 @@
       width:clamp(120px, 36%, 360px);
       z-index:1;
       position:absolute;
-      left: -2%;    /* reduced negative offset */
+      left: -2%;
       top: -4%;
       transform:rotate(6deg) scale(.98);
       opacity:.98;
@@ -131,7 +139,6 @@
       .stack:hover .secondary-img{ transform:translateY(6%) rotate(-4deg) scale(1.01); }
     }
 
-    /* Smaller screens: stack vertically and simplify shapes */
     @media (max-width:900px){
       .image-group{ grid-template-columns: 1fr; gap:12px; }
       .main-img{ width:78%; transform:none; margin:0 auto; position:relative; }
@@ -146,7 +153,7 @@
         opacity:1;
         margin: -16px auto 0;
       }
-      .shape{ display:none; } /* hide decorative shapes on smaller screens */
+      .shape{ display:none; }
       .container{ padding:0 16px; }
       .about-section{ padding:36px 0; }
       .content{ text-align:center; margin-top:8px; }
@@ -159,16 +166,6 @@
       .secondary-img, .accent-img{ width:56%; margin-top:-12px; }
       .content h2{ font-size:20px; }
       .content p{ font-size:14px; }
-    }
-    :root{
-      --accent:#6f5dff;
-      --muted:#7a7f86;
-      --bg:#ffffff;
-      --card:#f6f7fb;
-      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-      --glass: rgba(255,255,255,0.7);
-      --radius: 14px;
-      --container: 1200px;
     }
 
     .projects-section{ padding:80px 20px; background:linear-gradient(180deg,#fff 0%, #fbfbfe 100%); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
@@ -201,7 +198,6 @@
     .project-card img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .6s cubic-bezier(.2,.9,.2,1); }
     .project-card:hover img{ transform:scale(1.06); }
 
-    /* overlay */
     .project-info{
       position:absolute; left:0; right:0; bottom:0; padding:20px; background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(10,12,20,0.55));
       color:#fff; transform:translateY(110%); transition: transform .36s ease;
@@ -223,10 +219,8 @@
     .project-card:hover .project-cta{ background:#fff; border:0; }
     .project-card:hover .project-cta svg{ transform:translateX(3px); stroke:var(--accent); }
 
-    /* subtle tag pill in top-left */
     .project-tag{ position:absolute; left:14px; top:14px; background:var(--glass); color:#3b3b45; font-weight:700; padding:8px 12px; border-radius:999px; font-size:13px; backdrop-filter: blur(6px); box-shadow: 0 6px 18px rgba(17,24,39,0.06); }
 
-    /* CTA row */
     .projects-actions{ text-align:center; margin-top:34px; }
     .btn-primary{
       display:inline-block; padding:12px 20px; border-radius:12px; background:var(--accent); color:#fff; font-weight:700; text-decoration:none; box-shadow: 0 10px 30px rgba(111,93,255,0.12);
@@ -234,7 +228,6 @@
     }
     .btn-primary:hover{ transform:translateY(-3px); }
 
-    /* Modal / lightbox */
     .pg-modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:1200; background:rgba(6,7,10,0.55); padding:28px; }
     .pg-modal.open{ display:flex; }
     .pg-modal-inner{ width:min(1100px,96%); background:#fff; border-radius:14px; overflow:hidden; box-shadow: 0 30px 80px rgba(8,9,18,0.35); display:flex; gap:0; max-height:90vh; }
@@ -246,10 +239,105 @@
     .modal-text{ color:#2c3340; line-height:1.6; margin-bottom:18px; }
     .modal-close{ position:absolute; right:28px; top:28px; background:transparent; border:0; color:#fff; font-size:20px; cursor:pointer; padding:8px; border-radius:8px; }
 
-    /* tiny responsive tweaks */
     @media (max-width:900px){
       .pg-modal-inner{ flex-direction:column; max-height:88vh; }
       .pg-modal-right{ padding:18px; }
+    }
+
+    /* ===== FAQ styles ===== */
+    .faq-section {
+      margin: 2.5rem 0;
+      padding: 32px 0;
+    }
+    .faq-section h2{ font-size:22px; margin-bottom:16px; color:#111827; }
+    .faq-item {
+      border-radius: 10px;
+      border: 1px solid #e8e8ee;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 22px rgba(16,24,40,0.05);
+    }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      color:#0f1724;
+    }
+    .faq-answer {
+      max-height: 0;
+      padding: 0 16px;
+      transition: max-height 0.34s ease, padding 0.25s ease;
+      overflow: hidden;
+      font-weight: 400;
+      color: #374151;
+      font-size:14px;
+      line-height:1.6;
+    }
+    .faq-item.open .faq-answer {
+      padding: 12px 16px 16px 16px;
+      max-height: 420px;
+    }
+    .faq-question .chev { transition: transform 0.25s ease; }
+    .faq-item.open .chev { transform: rotate(180deg); }
+
+    /* ===== Floating Chatbot styles ===== */
+    .chatbot-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 99999;
+      background: linear-gradient(135deg,#0066FF,#00C6FF);
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+    .chatbot-panel {
+      position: fixed;
+      right: 20px;
+      bottom: 86px;
+      width: 320px;
+      max-width: calc(100% - 40px);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      z-index: 99998;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      height: 420px;
+    }
+    .chatbot-panel.open { display:flex; }
+    .chatbot-header {
+      padding: 12px 14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border-bottom: 1px solid #eee;
+    }
+    .chatbot-header .title { font-weight:700; font-size:14px; }
+    .chatbot-messages { flex: 1; padding: 12px; overflow-y: auto; background: linear-gradient(#fafafa,#fff); display:flex; flex-direction:column; gap:8px; }
+    .msg { display:inline-block; margin-bottom: 10px; padding: 8px 12px; border-radius: 12px; max-width: 80%; line-height:1.3; font-size: 14px; }
+    .msg.user { background: #0066FF; color: #fff; align-self: flex-end; border-bottom-right-radius: 6px; }
+    .msg.bot { background: #f1f1f1; color: #222; border-bottom-left-radius: 6px; align-self: flex-start; }
+    .chatbot-input { padding: 10px; border-top: 1px solid #eee; display:flex; gap:8px; }
+    .chatbot-input input[type="text"] { flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #ddd; outline: none; font-size: 14px; }
+    .chatbot-input button { padding: 10px 12px; border-radius: 8px; border: none; background: #0066FF; color: #fff; cursor:pointer; font-weight:600; }
+
+    @media (max-width: 520px) {
+      .chatbot-panel { width: 92%; right: 4%; bottom: 80px; height: 360px; }
+      .site-container { padding: 0 0.8rem; }
     }
 
   </style>
@@ -269,13 +357,10 @@
   <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
     <div class="vd to/4 tc wf yf" style="display:flex; align-items:center; gap:0.6rem;">
       <!-- single logo + company name (inline-size fix) -->
-<!-- brand (logo left, company name right) -->
 <a href="index.html" class="brand-link" aria-label="Narayan GrowthWave - Home">
   <img class="header-logo om" src="images/Screenshot 2025-10-22 125814.png" alt="Narayan GrowthWave logo" />
   <span class="header-brand">Narayan GrowthWave</span>
 </a>
-
-
 
       <!-- Hamburger Toggle BTN -->
       <button class="po rc" @click="navigationOpen = !navigationOpen" aria-label="Toggle navigation">
@@ -291,7 +376,6 @@
           </span>
         </span>
       </button>
-      <!-- Hamburger Toggle BTN -->
     </div>
 
     <div class="vd wo/4 sd qo f ho oo wf yf" :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }">
@@ -313,10 +397,8 @@
             <!-- Dropdown Start -->
             <ul class="a" :class="{ 'tc': dropdown }">
               <li><a href="blog-grid.html" class="xl" :class="{ 'mk': page === 'blog-grid' }">Blog Grid</a></li>
-             
               <li><a href="signin.html" class="xl" :class="{ 'mk': page === 'signin' }">Sign In</a></li>
               <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">Sign Up</a></li>
-             
             </ul>
             <!-- Dropdown End -->
           </li>
@@ -328,15 +410,11 @@
 </header>
 <!-- ===== Header End ===== -->
 
-  <!-- ===== Header End ===== -->
-
   <main>
     <!-- ===== Hero Start ===== -->
     <section class="gj do ir hj sp jr i pg">
       <!-- Hero Images -->
-      <div class="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r">
-        
-      </div>
+      <div class="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r"></div>
 
       <!-- Hero Content -->
       <div class="bb ze ki xn 2xl:ud-px-0">
@@ -360,7 +438,6 @@
 
   <!-- Phone Number & Schedule -->
   <div class="flex flex-col sm:flex-row items-center gap-2 text-gray-800 font-medium">
-    <a href="tel:+919905028510" class="text-blue-700 hover:underline"></a>
     <span class="hidden sm:inline text-gray-500">|</span>
     <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
   </div>
@@ -423,13 +500,13 @@
       <div class="image-group" aria-hidden="false">
         <div class="stack" role="img" aria-label="Group of images">
           <img src="images/shape-05.svg" alt="" class="shape shape-1" />
-          
-          <img src="images/about-02.png" alt="About image 2" class="secondary-img" />
+          <img src="images/about-01.png" alt="About image 1" class="main-img responsive-img" />
+          <img src="images/about-02.png" alt="About image 2" class="secondary-img responsive-img" />
         </div>
 
         <div class="stack" role="img" aria-label="Decorative images">
           <img src="images/shape-06.svg" alt="" class="shape shape-2" />
-          <img src="images/about-03.png" alt="About image 3" class="accent-img" />
+          <img src="images/about-03.png" alt="About image 3" class="accent-img responsive-img" />
           <img src="images/shape-07.svg" alt="" class="shape shape-3" />
         </div>
       </div>
@@ -718,7 +795,6 @@
         </div>
       </a>
 
-
       <!-- Project 5 (example) -->
       <a href="#" class="project-card" data-category="ecommerce marketing" data-title="KitchenJoy — Store + Ads" data-desc="Shopify build + conversion-focused ads; 52% increase in AOV." data-image="images/project-05.png">
         <span class="project-tag">Ecommerce</span>
@@ -760,99 +836,13 @@
     </div>
   </div>
 
-  <script>
-    (function(){
-      // filtering
-      const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
-      const cards = Array.from(document.querySelectorAll('.project-card'));
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const filter = btn.dataset.filter;
-          // toggle active states
-          filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-          btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-
-          cards.forEach(card => {
-            const cats = card.dataset.category.split(' ');
-            if(filter === '*' || cats.includes(filter)) {
-              card.style.display = ''; // show
-              card.style.opacity = 0;
-              setTimeout(()=> card.style.opacity=1, 20);
-            } else {
-              card.style.opacity = 0;
-              setTimeout(()=> card.style.display = 'none', 220);
-            }
-          });
-        });
-      });
-
-      // modal/lightbox
-      const modal = document.getElementById('pgModal');
-      const modalImg = document.getElementById('modalImage');
-      const modalTitle = document.getElementById('modalTitle');
-      const modalDesc = document.getElementById('modalDesc');
-      const modalTagline = document.getElementById('modalTagline');
-      const modalClose = document.getElementById('modalClose');
-
-      function openModal(card){
-        const img = card.dataset.image || card.querySelector('img').src;
-        const title = card.dataset.title || card.querySelector('.project-title').innerText;
-        const desc = card.dataset.desc || card.querySelector('.project-desc').innerText;
-        const tag = card.dataset.category ? card.dataset.category.split(' ')[0].toUpperCase() : '';
-
-        modalImg.src = img;
-        modalImg.alt = title;
-        modalTitle.textContent = title;
-        modalDesc.textContent = desc;
-        modalTagline.textContent = tag;
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden','false');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeModal(){
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden','true');
-        document.body.style.overflow = '';
-      }
-
-      cards.forEach(c => {
-        c.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal(c);
-        });
-      });
-
-      modalClose.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e)=> {
-        if(e.target === modal) closeModal();
-      });
-
-      document.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape') closeModal();
-      });
-
-      // graceful initial reveal (optional)
-      window.addEventListener('load', ()=> {
-        document.querySelectorAll('.project-card').forEach((c, i)=> {
-          c.style.transform = 'translateY(10px)';
-          c.style.opacity = 0;
-          setTimeout(()=> { c.style.transform='none'; c.style.opacity=1; c.style.transition='all .6s cubic-bezier(.2,.9,.2,1)'; }, 80 + i*80);
-        });
-      });
-    })();
-  </script>
-</section>
-<!-- ===== Projects End ===== -->
-
     <!-- ===== Testimonials Start ===== -->
     <section class="hj rp hr">
       <!-- Section Title Start -->
       <div
         x-data="{ sectionTitle: `Client Testimonials`, sectionTitleText: `Real results. Verified feedback from our clients.` }">
         <div class="animate_top bb ze rj ki xn vq">
-          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
-          </h2>
+          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b"></h2>
           <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
         </div>
       </div>
@@ -955,8 +945,7 @@
       <div
         x-data="{ sectionTitle: `Trusted by Brands`, sectionTitleText: `Companies that partner with us for growth.` }">
         <div class="animate_top bb ze rj ki xn vq">
-          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
-          </h2>
+          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b"></h2>
           <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
         </div>
       </div>
@@ -972,12 +961,12 @@
             <img class="tk ml il zl om" src="images/brand-light-02.svg" alt="Clients" />
             <img class="xc sk ml il zl nm" src="images/brand-dark-02.svg" alt="Clients" />
           </a>
-          
+
           <a href="#!" class="rc animate_top">
             <img class="tk ml il zl om" src="images/brand-light-05.svg" alt="Clients" />
             <img class="xc sk ml il zl nm" src="images/brand-dark-05.svg" alt="Clients" />
           </a>
-          
+
         </div>
       </div>
     </section>
@@ -989,8 +978,7 @@
       <div
         x-data="{ sectionTitle: `Latest Insights`, sectionTitleText: `Practical digital marketing and web development tips.` }">
         <div class="animate_top bb ze rj ki xn vq">
-          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
-          </h2>
+          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b"></h2>
           <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
         </div>
       </div>
@@ -1096,8 +1084,7 @@
       <div
         x-data="{ sectionTitle: `Let’s Talk Growth`, sectionTitleText: `Tell us about your goals — we'll propose a plan with clear milestones and timelines.` }">
         <div class="animate_top bb ze rj ki xn vq">
-          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
-          </h2>
+          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b"></h2>
           <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
         </div>
       </div>
@@ -1133,37 +1120,13 @@
               <h4 class="wj kk wm qb">Social Media</h4>
               <ul class="tc wf fg">
                 <li>
-                  <a href="#!" class="c tc wf xf ie ld rg ml il tl">
-                    <!-- Facebook icon -->
-                    <svg class="th lm ml il" width="11" height="20" viewBox="0 0 11 20" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.83366 11.3752H9.12533L10.042 7.7085H6.83366V5.87516C6.83366 4.931 6.83366 4.04183 8.667 4.04183H10.042V0.96183C9.74316 0.922413 8.61475 0.833496 7.42308 0.833496C4.93433 0.833496 3.16699 2.35241 3.16699 5.14183V7.7085H0.416992V11.3752H3.16699V19.1668H6.83366V11.3752Z"
-                        fill="" />
-                    </svg>
-                  </a>
+                  <a href="#!" class="c tc wf xf ie ld rg ml il tl"> <!-- Facebook icon --></a>
                 </li>
                 <li>
-                  <a href="#!" class="c tc wf xf ie ld rg ml il tl">
-                    <!-- Twitter / X icon -->
-                    <svg class="th lm ml il" width="20" height="16" viewBox="0 0 20 16" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M19.3153 2.18484C18.6155 2.4944 17.8733 2.6977 17.1134 2.78801C17.9144 2.30899 18.5138 1.55511 18.8001 0.666844C18.0484 1.11418 17.2244 1.42768 16.3654 1.59726C15.7885 0.979958 15.0238 0.57056 14.1901 0.432713C13.3565 0.294866 12.5007 0.436294 11.7558 0.835009C11.0108 1.23372 10.4185 1.86739 10.0708 2.63749C9.72313 3.40759 9.63963 4.27098 9.83327 5.09343C8.30896 5.01703 6.81775 4.62091 5.45645 3.93079C4.09516 3.24067 2.89423 2.27197 1.93161 1.08759C1.59088 1.67284 1.41182 2.33814 1.41278 3.01534C1.41278 4.34451 2.08928 5.51876 3.11778 6.20626C2.50912 6.1871 1.91386 6.02273 1.38161 5.72685V5.77451C1.38179 6.65974 1.68811 7.51766 2.24864 8.20282C2.80916 8.88797 3.58938 9.3582 4.45703 9.53376C3.89201 9.68688 3.29956 9.70945 2.72453 9.59976C2.96915 10.3617 3.44595 11.0281 4.08815 11.5056C4.73035 11.9831 5.50581 12.2478 6.30594 12.2627C5.51072 12.8872 4.60019 13.3489 3.62642 13.6213C2.65264 13.8938 1.63473 13.9716 0.630859 13.8503C2.38325 14.9773 4.4232 15.5756 6.50669 15.5737C13.5586 15.5737 17.415 9.73176 17.415 4.66535C17.415 4.50035 17.4104 4.33351 17.4031 4.17035C18.1537 3.62783 18.8016 2.95578 19.3162 2.18576L19.3153 2.18484Z"
-                        fill="" />
-                    </svg>
-                  </a>
+                  <a href="#!" class="c tc wf xf ie ld rg ml il tl"> <!-- Twitter icon --></a>
                 </li>
                 <li>
-                  <a href="#!" class="c tc wf xf ie ld rg ml il tl">
-                    <!-- LinkedIn icon -->
-                    <svg class="th lm ml il" width="19" height="18" viewBox="0 0 19 18" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M4.36198 2.58327C4.36174 3.0695 4.16835 3.53572 3.82436 3.87937C3.48037 4.22301 3.01396 4.41593 2.52773 4.41569C2.0415 4.41545 1.57528 4.22206 1.23164 3.87807C0.887991 3.53408 0.69507 3.06767 0.695313 2.58144C0.695556 2.09521 0.888943 1.62899 1.23293 1.28535C1.57692 0.941701 2.04333 0.748781 2.52956 0.749024C3.01579 0.749267 3.48201 0.942654 3.82566 1.28664C4.1693 1.63063 4.36222 2.09704 4.36198 2.58327V2.58327ZM4.41698 5.77327H0.750313V17.2499H4.41698V5.77327ZM10.2103 5.77327H6.56198V17.2499H10.1736V11.2274C10.1736 7.87244 14.5461 7.56077 14.5461 11.2274V17.2499H18.167V9.98077C18.167 4.32494 11.6953 4.53577 10.1736 7.31327L10.2103 5.77327Z"
-                        fill="" />
-                    </svg>
-                  </a>
+                  <a href="#!" class="c tc wf xf ie ld rg ml il tl"> <!-- LinkedIn icon --></a>
                 </li>
               </ul>
             </div>
@@ -1215,6 +1178,61 @@
     </section>
     <!-- ===== Contact End ===== -->
 
+    <!-- ===== FAQ (already tailored) ===== -->
+    <section class="faq-section site-container" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+
+      <div class="faq-item" id="faq1">
+        <div class="faq-question" data-target="faq1">
+          <span>How fast can you build a small business website?</span>
+          <span class="chev">▾</span>
+        </div>
+        <div class="faq-answer">
+          For a 5-page static responsive website we typically deliver within **7–12 working days** depending on content and revisions. CMS or eCommerce projects take longer — usually 3–6 weeks.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq2">
+        <div class="faq-question" data-target="faq2">
+          <span>What marketing channels do you recommend for a local business?</span>
+          <span class="chev">▾</span>
+        </div>
+        <div class="faq-answer">
+          We commonly recommend a mix of Google Business Profile + Local SEO, Facebook & Instagram ads, and a high-converting landing page — the exact mix depends on budget and industry.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq3">
+        <div class="faq-question" data-target="faq3">
+          <span>Will my website be fast and mobile-friendly?</span>
+          <span class="chev">▾</span>
+        </div>
+        <div class="faq-answer">
+          Yes. We build responsive sites, optimize images and implement basic performance best-practices. For advanced speed improvements we can run a Lighthouse audit and implement recommendations.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq4">
+        <div class="faq-question" data-target="faq4">
+          <span>How do you measure campaign success?</span>
+          <span class="chev">▾</span>
+        </div>
+        <div class="faq-answer">
+          We set measurable KPIs (leads, CPA, ROAS, traffic) and report monthly with analytics data. Tracking is implemented via Google Analytics / GA4 and goal/event tracking.
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq5">
+        <div class="faq-question" data-target="faq5">
+          <span>Do you provide ongoing support after the project?</span>
+          <span class="chev">▾</span>
+        </div>
+        <div class="faq-answer">
+          Yes — maintenance & support plans are available for updates, security, and campaign optimizations. We offer monthly retainers to suit different needs.
+        </div>
+      </div>
+    </section>
+
     <!-- ===== CTA Start ===== -->
     <section class="i pg gh ji">
       <!-- Bg Shape -->
@@ -1238,9 +1256,9 @@
         </div>
       </div>
     </section>
-
     <!-- ===== CTA End ===== -->
   </main>
+
   <!-- ===== Footer Start ===== -->
   <footer>
     <div class="bb ze ki xn 2xl:ud-px-0">
@@ -1248,62 +1266,10 @@
       <div class="ji gp">
         <div class="tc uf ap gg fp">
           <div class="animate_top zd/2 to/4">
-            
-
             <p class="lc fb">Narayan GrowthWave Digital marketing and web development that drives business results.</p>
 
             <ul class="tc wf cg">
-              <li>
-                <a href="#!">
-                  <svg class="vh ul cl il" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_48_1499)">
-                      <path
-                        d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47 14 5.5 16 5.5H17.5V2.14C17.174 2.097 15.943 2 14.643 2C11.928 2 10 3.657 10 6.7V9.5H7V13.5H10V22H14V13.5Z"
-                        fill="" />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_48_1499">
-                        <rect width="24" height="24" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="#!">
-                  <svg class="vh ul cl il" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_48_1502)">
-                      <path
-                        d="M22.162 5.65593C21.3985 5.99362 20.589 6.2154 19.76 6.31393C20.6337 5.79136 21.2877 4.96894 21.6 3.99993C20.78 4.48793 19.881 4.82993 18.944 5.01493C18.3146 4.34151 17.4803 3.89489 16.5709 3.74451C15.6615 3.59413 14.7279 3.74842 13.9153 4.18338C13.1026 4.61834 12.4564 5.30961 12.0771 6.14972C11.6978 6.98983 11.6067 7.93171 11.818 8.82893C10.1551 8.74558 8.52832 8.31345 7.04328 7.56059C5.55823 6.80773 4.24812 5.75098 3.19799 4.45893C2.82628 5.09738 2.63095 5.82315 2.63199 6.56193C2.63199 8.01193 3.36999 9.29293 4.49199 10.0429C3.828 10.022 3.17862 9.84271 2.59799 9.51993V9.57193C2.59819 10.5376 2.93236 11.4735 3.54384 12.221C4.15532 12.9684 5.00647 13.4814 5.95299 13.6729C5.33661 13.84 4.6903 13.8646 4.06299 13.7449C4.32986 14.5762 4.85 15.3031 5.55058 15.824C6.25117 16.345 7.09712 16.6337 7.96999 16.6499C7.10247 17.3313 6.10917 17.8349 5.04687 18.1321C3.98458 18.4293 2.87412 18.5142 1.77899 18.3819C3.69069 19.6114 5.91609 20.2641 8.18899 20.2619C15.882 20.2619 20.089 13.8889 20.089 8.36193C20.089 8.18193 20.084 7.99993 20.076 7.82193C20.8949 7.2301 21.6016 6.49695 22.163 5.65693L22.162 5.65593Z"
-                        fill="" />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_48_1502">
-                        <rect width="24" height="24" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="#!">
-                  <svg class="vh ul cl il" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_48_1505)">
-                      <path
-                        d="M6.94 5.00002C6.93974 5.53046 6.72877 6.03906 6.35351 6.41394C5.97825 6.78883 5.46944 6.99929 4.939 6.99902C4.40857 6.99876 3.89997 6.78779 3.52508 6.41253C3.1502 6.03727 2.93974 5.52846 2.94 4.99802C2.94027 4.46759 3.15124 3.95899 3.5265 3.5841C3.90176 3.20922 4.41057 2.99876 4.941 2.99902C5.47144 2.99929 5.98004 3.21026 6.35492 3.58552C6.72981 3.96078 6.94027 4.46959 6.94 5.00002ZM7 8.48002H3V21H7V8.48002ZM13.32 8.48002H9.34V21H13.28V14.43C13.28 10.77 18.05 10.43 18.05 14.43V21H22V13.07C22 6.90002 14.94 7.13002 13.28 10.16L13.32 8.48002Z"
-                        fill="" />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_48_1505">
-                        <rect width="24" height="24" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </a>
-              </li>
+              <li><!-- social icons --></li>
             </ul>
           </div>
 
@@ -1314,11 +1280,7 @@
               <ul>
                 <li><a href="#!" class="sc xl vb">Home</a></li>
                 <li><a href="#!" class="sc xl vb">Product</a></li>
-                <li>
-                  <a href="#!" class="sc xl vb">
-                    Careers
-                  </a>
-                </li>
+                <li><a href="#!" class="sc xl vb">Careers</a></li>
                 <li><a href="#!" class="sc xl vb">Pricing</a></li>
               </ul>
             </div>
@@ -1353,25 +1315,30 @@
                 <div class="i">
                   <input type="text" placeholder="Email address" class="vd sm _g ch pm vk xm rg gm dm dn gi mi" />
 
-                  <button class="h q fi">
+                  <button class="h q fi" aria-label="Subscribe">
                     <svg class="th vm ul" width="20" height="20" viewBox="0 0 20 20" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
-                      <g clip-path="url(#clip0_48_1487)">
-                        <path
-                          d="M3.1175 1.17318L18.5025 9.63484C18.5678 9.67081 18.6223 9.72365 18.6602 9.78786C18.6982 9.85206 18.7182 9.92527 18.7182 9.99984C18.7182 10.0744 18.6982 10.1476 18.6602 10.2118C18.6223 10.276 18.5678 10.3289 18.5025 10.3648L3.1175 18.8265C3.05406 18.8614 2.98262 18.8792 2.91023 18.8781C2.83783 18.8769 2.76698 18.857 2.70465 18.8201C2.64232 18.7833 2.59066 18.7308 2.55478 18.6679C2.51889 18.6051 2.50001 18.5339 2.5 18.4615V1.53818C2.50001 1.46577 2.51889 1.39462 2.55478 1.33174C2.59066 1.26885 2.64232 1.2164 2.70465 1.17956C2.76698 1.14272 2.83783 1.12275 2.91023 1.12163C2.98262 1.12051 3.05406 1.13828 3.1175 1.17318ZM4.16667 10.8332V16.3473L15.7083 9.99984L4.16667 3.65234V9.16651H8.33333V10.8332H4.16667Z"
-                          fill="" />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_48_1487">
-                          <rect width="20" height="20" fill="white" />
-                        </clipPath>
-                      </defs>
+                      <g clip-path="url(#clip0_48_1487)"><path d="M3.1175 1.17318L18.5025 9.63484C18.5678 9.67081 18.6223 9.72365 18.6602 9.78786C18.6982 9.85206 18.7182 9.92527 18.7182 9.99984C18.7182 10.0744 18.6982 10.1476 18.6602 10.2118C18.6223 10.276 18.5678 10.3289 18.5025 10.3648L3.1175 18.8265C3.05406 18.8614 2.98262 18.8792 2.91023 18.8781C2.83783 18.8769 2.76698 18.857 2.70465 18.8201C2.64232 18.7833 2.59066 18.7308 2.55478 18.6679C2.51889 18.6051 2.50001 18.5339 2.5 18.4615V1.53818C2.50001 1.46577 2.51889 1.39462 2.55478 1.33174C2.59066 1.26885 2.64232 1.2164 2.70465 1.17956C2.76698 1.14272 2.83783 1.12275 2.91023 1.12163C2.98262 1.12051 3.05406 1.13828 3.1175 1.17318ZM4.16667 10.8332V16.3473L15.7083 9.99984L4.16667 3.65234V9.16651H8.33333V10.8332H4.16667Z" fill=""/></g>
                     </svg>
                   </button>
                 </div>
               </form>
             </div>
           </div>
+
+          <!-- MAP embed (centered on Patna, Bihar). Replace q= value for specific address -->
+          <div class="animate_top" style="width:100%; margin-top:18px;">
+            <h4 class="kk wm tj ec">Our Location</h4>
+            <div style="width:100%;height:220px;border-radius:12px;overflow:hidden;border:1px solid #e6e7ee;">
+              <iframe
+  src="https://www.google.com/maps?q=New+Delhi,+Delhi&output=embed"
+  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            </div>
+            <p style="margin-top:8px;color:#6b7280;font-size:13px;">Office (primary): Delhi, India - Call: <a href="tel:+919905028510">+91 9905028510</a></p>
+          </div>
+
         </div>
       </div>
       <!-- Footer Top -->
@@ -1404,25 +1371,191 @@
         d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z" />
     </svg>
   </button>
-
   <!-- ====== Back To Top End ===== -->
 
+  <!-- Floating Chatbot (HTML) -->
+  <button class="chatbot-btn" id="chatToggle" aria-label="Open chat">💬</button>
+
+  <div class="chatbot-panel" id="chatPanel" role="dialog" aria-label="Chat with us">
+    <div class="chatbot-header">
+      <div style="flex:1">
+        <div class="title">Narayan GrowthWave — Help</div>
+        <div style="font-size:12px;color:#666">Mon–Sat: 9:00 AM – 7:00 PM</div>
+      </div>
+      <button id="closeChat" aria-label="Close chat" style="background:none;border:none;cursor:pointer;font-weight:700">✕</button>
+    </div>
+
+    <div class="chatbot-messages" id="chatMessages" aria-live="polite">
+      <div class="msg bot">Hi there! 👋 How can I help you today?</div>
+    </div>
+
+    <div class="chatbot-input">
+      <input id="chatInput" type="text" placeholder="Write a message..." aria-label="Message" />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
   <script>
-    //  Pricing Table
+    (function(){
+      // filtering
+      const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+      const cards = Array.from(document.querySelectorAll('.project-card'));
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          // toggle active states
+          filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+          btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+
+          cards.forEach(card => {
+            const cats = card.dataset.category.split(' ');
+            if(filter === '*' || cats.includes(filter)) {
+              card.style.display = '';
+              card.style.opacity = 0;
+              setTimeout(()=> card.style.opacity=1, 20);
+            } else {
+              card.style.opacity = 0;
+              setTimeout(()=> card.style.display = 'none', 220);
+            }
+          });
+        });
+      });
+
+      // modal/lightbox
+      const modal = document.getElementById('pgModal');
+      const modalImg = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDesc');
+      const modalTagline = document.getElementById('modalTagline');
+      const modalClose = document.getElementById('modalClose');
+
+      function openModal(card){
+        const img = card.dataset.image || card.querySelector('img').src;
+        const title = card.dataset.title || card.querySelector('.project-title').innerText;
+        const desc = card.dataset.desc || card.querySelector('.project-desc').innerText;
+        const tag = card.dataset.category ? card.dataset.category.split(' ')[0].toUpperCase() : '';
+
+        modalImg.src = img;
+        modalImg.alt = title;
+        modalTitle.textContent = title;
+        modalDesc.textContent = desc;
+        modalTagline.textContent = tag;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+
+      cards.forEach(c => {
+        c.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(c);
+        });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e)=> {
+        if(e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') closeModal();
+      });
+
+      // graceful initial reveal (optional)
+      window.addEventListener('load', ()=> {
+        document.querySelectorAll('.project-card').forEach((c, i)=> {
+          c.style.transform = 'translateY(10px)';
+          c.style.opacity = 0;
+          setTimeout(()=> { c.style.transform='none'; c.style.opacity=1; c.style.transition='all .6s cubic-bezier(.2,.9,.2,1)'; }, 80 + i*80);
+        });
+      });
+
+      // FAQ accordion
+      document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+          const item = q.parentElement;
+          const open = item.classList.contains('open');
+          // close other open items (optional) - keeps UX tidy
+          document.querySelectorAll('.faq-item.open').forEach(i => { if(i !== item) i.classList.remove('open'); });
+          if (open) item.classList.remove('open');
+          else item.classList.add('open');
+          // scroll into view a bit on small screens
+          if (window.innerWidth < 800) {
+            setTimeout(()=> item.scrollIntoView({behavior:'smooth', block:'center'}), 160);
+          }
+        });
+      });
+
+      // Chatbot behavior
+      const chatToggle = document.getElementById('chatToggle');
+      const chatPanel = document.getElementById('chatPanel');
+      const closeChat = document.getElementById('closeChat');
+      const sendBtn = document.getElementById('sendBtn');
+      const chatInput = document.getElementById('chatInput');
+      const chatMessages = document.getElementById('chatMessages');
+
+      function appendMessage(text, who='bot') {
+        const el = document.createElement('div');
+        el.className = 'msg ' + who;
+        el.textContent = text;
+        chatMessages.appendChild(el);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      chatToggle.addEventListener('click', () => {
+        chatPanel.classList.toggle('open');
+        if (chatPanel.classList.contains('open')) setTimeout(()=>chatInput.focus(),200);
+      });
+      closeChat.addEventListener('click', ()=> chatPanel.classList.remove('open'));
+
+      function botReply(userText) {
+        const lowercase = userText.toLowerCase();
+        if (lowercase.includes('price') || lowercase.includes('cost') || lowercase.includes('how much')) {
+          return "Our pricing depends on scope. For websites we have one-time packages (₹7,999+). For marketing, monthly packages start at ₹9,999. Want a quick quote?";
+        } else if (lowercase.includes('website') || lowercase.includes('site')) {
+          return "We build responsive websites, CMS and eCommerce stores. Share your needs and timeline and we'll suggest a package.";
+        } else if (lowercase.includes('lead') || lowercase.includes('leads')) {
+          return "We run campaigns that target qualified leads via search & social. What's your monthly lead target or budget?";
+        } else if (lowercase.includes('contact') || lowercase.includes('phone')) {
+          return "You can call us at +91 9905028510 (Mon–Sat 9 AM–7 PM) or leave a message here and we'll call back.";
+        } else {
+          return "Thanks — we'll get back to you soon. Please share your email or phone to follow up.";
+        }
+      }
+
+      function sendMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        appendMessage(text, 'user');
+        chatInput.value = '';
+        setTimeout(() => {
+          appendMessage(botReply(text), 'bot');
+        }, 650);
+      }
+
+      sendBtn.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+    })();
+  </script>
+
+  <script>
+    //  Pricing Table (kept from phase 2)
     const setup = () => {
       return {
         isNavOpen: false,
-
         billPlan: 'monthly',
-
         plans: [
           {
             name: 'Starter Package',
             featured: false,
-            price: {
-              monthly: 9999,
-              annually: 9999 * 12,
-            },
+            price: { monthly: 9999, annually: 9999 * 12 },
             features: [
               '15 Social Media Posts / month (custom graphics + captions)',
               '10 Short Videos / Reels per month',
@@ -1436,10 +1569,7 @@
           {
             name: 'Growth Package',
             featured: true,
-            price: {
-              monthly: 12999,
-              annually: 12999 * 12,
-            },
+            price: { monthly: 12999, annually: 12999 * 12 },
             features: [
               '20 Social Media Posts / month (brand-focused visuals)',
               '15 Short Videos / Reels per month',
@@ -1453,10 +1583,7 @@
           {
             name: 'Premium Package',
             featured: false,
-            price: {
-              monthly: 14999,
-              annually: 14999 * 12,
-            },
+            price: { monthly: 14999, annually: 14999 * 12 },
             features: [
               '30 High-quality Posts / month',
               '20 Reels / Short Videos per month',
@@ -1471,6 +1598,7 @@
       };
     };
   </script>
+
   <script defer src="bundle.js"></script>
 </body>
 
