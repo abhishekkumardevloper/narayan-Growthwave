@@ -2620,3 +2620,194 @@ h1,  h2,  h3,  h4,  h5,  h6{
 
 /* Optional: slightly larger on hover for subtle feedback */
 .brand-link:hover .header-logo { transform: scale(1.03); transition: transform .18s ease; }
+
+/* --------- Layout / width fixes --------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden; /* prevent horizontal scroll from oversized elements */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* A safe container so sections don't expand beyond viewport */
+.site-container {
+  max-width: 1200px; /* change if you want wider */
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Prevent images from breaking layout */
+img, .responsive-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover; /* prevents distortion for fixed-height image boxes */
+}
+
+/* If you have full-width image sections, use this wrapper */
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* For sections that were causing site width to grow, quickly reset */
+.fix-overflow * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* --------- FAQ accordion styles --------- */
+.faq-section {
+  margin: 2.5rem 0;
+}
+.faq-item {
+  border-radius: 10px;
+  border: 1px solid #e3e3e3;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+}
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.faq-answer {
+  max-height: 0;
+  padding: 0 1.2rem;
+  transition: max-height 0.34s ease, padding 0.25s ease;
+  overflow: hidden;
+  font-weight: 400;
+  color: #333;
+}
+.faq-item.open .faq-answer {
+  padding: 1rem 1.2rem 1.2rem 1.2rem;
+  max-height: 400px; /* enough for typical answers */
+}
+
+/* small chevron */
+.faq-question .chev {
+  transition: transform 0.25s ease;
+}
+.faq-item.open .chev {
+  transform: rotate(180deg);
+}
+
+/* --------- Floating Chatbot (right) --------- */
+.chatbot-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  background: linear-gradient(135deg,#0066FF,#00C6FF);
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+.chatbot-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 86px;
+  width: 320px;
+  max-width: calc(100% - 40px);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  z-index: 9998;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  height: 420px;
+}
+
+/* show panel when active */
+.chatbot-panel.open { display: flex; }
+
+/* header */
+.chatbot-header {
+  padding: 12px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom: 1px solid #eee;
+}
+.chatbot-header .title {
+  font-weight:700;
+  font-size:14px;
+}
+.chatbot-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  background: linear-gradient(#fafafa,#fff);
+}
+.msg {
+  display:inline-block;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 80%;
+  line-height:1.3;
+  font-size: 14px;
+}
+.msg.user {
+  background: #0066FF;
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+}
+.msg.bot {
+  background: #f1f1f1;
+  color: #222;
+  border-bottom-left-radius: 6px;
+  align-self: flex-start;
+}
+
+/* bottom input */
+.chatbot-input {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  display:flex;
+  gap:8px;
+}
+.chatbot-input input[type="text"] {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+.chatbot-input button {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #0066FF;
+  color: #fff;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* Responsive tweaks */
+@media (max-width: 520px) {
+  .chatbot-panel { width: 92%; right: 4%; bottom: 80px; height: 360px; }
+  .site-container { padding: 0 0.8rem; }
+}
