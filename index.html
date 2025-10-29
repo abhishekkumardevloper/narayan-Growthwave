@@ -6,6 +6,239 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Narayan GrowthWave — Digital Marketing & Website Development</title>
+   <style>
+    :root{
+      --container-width:1200px;
+      --gap:24px;
+      --accent-shadow: 0 12px 30px rgba(15,23,42,0.12);
+      --rounded:16px;
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+
+    /* Section wrapper */
+    .about-section{
+      padding:48px 20px;
+      background: #ffffff;
+      overflow:visible;
+    }
+
+    .container{
+      max-width:var(--container-width);
+      margin:0 auto;
+      padding:0 20px;
+    }
+
+    /* Layout for bigger screens: two columns */
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--gap);
+      flex-wrap:wrap;
+    }
+
+    /* Image group (left) */
+    .image-group{
+      flex:1 1 480px; /* grow, shrink, basis */
+      min-width:280px;
+      position:relative;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:end;
+    }
+
+    /* Each stack contains multiple images and shapes */
+    .stack{
+      position:relative;
+      width:100%;
+      min-height:180px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* Base image rules */
+    .stack img{
+      display:block;
+      max-width:100%;
+      height:auto;
+      border-radius: var(--rounded);
+      box-shadow: var(--accent-shadow);
+      object-fit:cover;
+      transition:transform .35s ease, box-shadow .35s ease;
+    }
+
+    /* Specific roles */
+    .shape{
+      position:absolute;
+      width:64px;
+      height:auto;
+      pointer-events:none;
+      opacity:.9;
+    }
+
+    .main-img{
+      width:70%;
+      z-index:3;
+      transform:translateY(-6%);
+    }
+
+    .secondary-img{
+      width:42%;
+      z-index:2;
+      position:absolute;
+      right:-6%;
+      bottom:-4%;
+      transform:rotate(-6deg) scale(.96);
+    }
+
+    .accent-img{
+      width:48%;
+      z-index:1;
+      position:absolute;
+      left:-6%;
+      top:-8%;
+      transform:rotate(6deg) scale(.98);
+      opacity:.98;
+    }
+
+    /* Decorative shapes positions */
+    .shape.shape-1{ left:-18px; top:-18px; width:72px; transform:rotate(6deg); }
+    .shape.shape-2{ right:6%; top:30%; width:56px; opacity:.8; }
+    .shape.shape-3{ left:6%; bottom:-10px; width:60px; opacity:.7; }
+
+    /* Text column */
+    .content{
+      flex:1 1 420px;
+      min-width:260px;
+      color:#111827;
+    }
+    .content h2{ font-size:28px; line-height:1.05; margin-bottom:12px; }
+    .content p{ color:#4b5563; line-height:1.6; font-size:15px; }
+
+    /* Hover micro-interaction (desktop) */
+    @media (hover: hover) and (min-width: 900px){
+      .stack:hover .main-img{ transform:translateY(-10%) scale(1.02); box-shadow: 0 20px 40px rgba(2,6,23,0.14);}
+      .stack:hover .secondary-img{ transform:translateY(6%) rotate(-4deg) scale(1.01); }
+    }
+
+    /* Smaller screens: stack vertically and simplify shapes */
+    @media (max-width:900px){
+      .image-group{ grid-template-columns: 1fr; gap:12px; }
+      .main-img{ width:78%; transform:none; margin:0 auto; position:relative; }
+      .secondary-img, .accent-img{ position:relative; right:auto; left:auto; bottom:auto; top:auto; width:46%; transform:none; opacity:1; margin: -16px auto 0; }
+      .shape{ display:none; } /* hide decorative shapes on smaller screens for clarity */
+      .container{ padding:0 16px; }
+      .about-section{ padding:36px 0; }
+      .content{ text-align:center; margin-top:8px; }
+      .content h2{ font-size:22px; }
+    }
+
+    /* Very small phones */
+    @media (max-width:420px){
+      .about-section{ padding:28px 0; }
+      .main-img{ width:86%; }
+      .secondary-img, .accent-img{ width:56%; margin-top:-12px; }
+      .content h2{ font-size:20px; }
+      .content p{ font-size:14px; }
+    }
+    :root{
+      --accent:#6f5dff;
+      --muted:#7a7f86;
+      --bg:#ffffff;
+      --card:#f6f7fb;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --glass: rgba(255,255,255,0.7);
+      --radius: 14px;
+      --container: 1200px;
+    }
+
+    .projects-section{ padding:80px 20px; background:linear-gradient(180deg,#fff 0%, #fbfbfe 100%); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    .projects-container{ max-width:var(--container); margin:0 auto; }
+
+    /* Title */
+    .projects-head{ text-align:center; margin-bottom:36px; }
+    #projects-heading{ font-size:42px; line-height:1.05; margin:0; color:#13131A; font-weight:700; letter-spacing:-0.02em; }
+    .projects-sub{ color:var(--muted); margin-top:10px; font-size:16px; }
+
+    /* Filters */
+    .projects-filters{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:28px 0 42px; }
+    .filter-btn{
+      background:transparent; border:0; padding:10px 18px; border-radius:999px; font-weight:600; color:#566170; cursor:pointer;
+      box-shadow: none; transition: all .28s ease; border:1px solid rgba(98,108,255,0.06);
+    }
+    .filter-btn:hover{ transform:translateY(-3px); }
+    .filter-btn.active{
+      background:linear-gradient(90deg,var(--accent), #7b69ff); color:#fff; box-shadow: 0 8px 24px rgba(111,93,255,0.18);
+      border:0;
+    }
+
+    /* Grid */
+    .projects-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; margin-top:8px; }
+    @media (max-width:1000px){ .projects-grid{ grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:640px){ .projects-grid{ grid-template-columns: 1fr; } }
+
+    /* Card */
+    .project-card{ position:relative; overflow:hidden; border-radius:var(--radius); background:var(--card); box-shadow:var(--shadow); min-height:260px; display:block; text-decoration:none; color:inherit; }
+    .project-card img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .6s cubic-bezier(.2,.9,.2,1); }
+    .project-card:hover img{ transform:scale(1.06); }
+
+    /* overlay */
+    .project-info{
+      position:absolute; left:0; right:0; bottom:0; padding:20px; background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(10,12,20,0.55));
+      color:#fff; transform:translateY(110%); transition: transform .36s ease;
+      display:flex; align-items:flex-end; gap:12px; min-height:120px;
+      backdrop-filter: blur(6px);
+    }
+    .project-card:hover .project-info,
+    .project-card:focus-within .project-info { transform:translateY(0); }
+
+    .project-meta{ display:block; }
+    .project-title{ font-size:18px; font-weight:700; margin:0 0 4px; letter-spacing:-0.01em; }
+    .project-desc{ font-size:13px; color:rgba(255,255,255,0.9); margin:0; opacity:0.95; }
+
+    .project-cta{
+      margin-left:auto; display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:10px;
+      background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.06); transition: all .22s ease;
+    }
+    .project-cta svg{ transform:translateX(0); transition: transform .22s ease; }
+    .project-card:hover .project-cta{ background:#fff; border:0; }
+    .project-card:hover .project-cta svg{ transform:translateX(3px); stroke:var(--accent); }
+
+    /* subtle tag pill in top-left */
+    .project-tag{ position:absolute; left:14px; top:14px; background:var(--glass); color:#3b3b45; font-weight:700; padding:8px 12px; border-radius:999px; font-size:13px; backdrop-filter: blur(6px); box-shadow: 0 6px 18px rgba(17,24,39,0.06); }
+
+    /* CTA row */
+    .projects-actions{ text-align:center; margin-top:34px; }
+    .btn-primary{
+      display:inline-block; padding:12px 20px; border-radius:12px; background:var(--accent); color:#fff; font-weight:700; text-decoration:none; box-shadow: 0 10px 30px rgba(111,93,255,0.12);
+      transition:transform .18s ease;
+    }
+    .btn-primary:hover{ transform:translateY(-3px); }
+
+    /* Modal / lightbox */
+    .pg-modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:1200; background:rgba(6,7,10,0.55); padding:28px; }
+    .pg-modal.open{ display:flex; }
+    .pg-modal-inner{ width:min(1100px,96%); background:#fff; border-radius:14px; overflow:hidden; box-shadow: 0 30px 80px rgba(8,9,18,0.35); display:flex; gap:0; max-height:90vh; }
+    .pg-modal-left{ flex:1 1 60%; min-width:300px; }
+    .pg-modal-left img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .pg-modal-right{ flex:1 1 40%; padding:28px; overflow:auto; }
+    .modal-title{ font-size:22px; margin:0 0 8px; font-weight:800; color:#0f1724; }
+    .modal-sub{ color:var(--muted); margin:0 0 16px; }
+    .modal-text{ color:#2c3340; line-height:1.6; margin-bottom:18px; }
+    .modal-close{ position:absolute; right:28px; top:28px; background:transparent; border:0; color:#fff; font-size:20px; cursor:pointer; padding:8px; border-radius:8px; }
+
+    /* tiny responsive tweaks */
+    @media (max-width:900px){
+      .pg-modal-inner{ flex-direction:column; max-height:88vh; }
+      .pg-modal-right{ padding:18px; }
+    }
+
+  </style>
   <link rel="icon" href="favicon.ico">
   <link href="style.css" rel="stylesheet">
 </head>
@@ -104,10 +337,21 @@
             <div class="tc tf yo zf mb">
               <a href="#support" class="ek jk lk gh gi hi rg ml il vc _d _l">Get Started Now</a>
 
-              <span class="tc sf" style="margin-left:1rem;">
-                <a href="#support" class="inline-block ek xj kk wm"> Call us +91 9905028510 </a>
-                <span class="inline-block">Mon–Sat: 9:00 AM – 7:00 PM</span>
-              </span>
+              <span class="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 bg-gradient-to-r from-blue-50 to-blue-100 px-4 py-3 rounded-xl shadow-md border border-blue-200">
+  <!-- Call Now Button -->
+  <a href="tel:+919905028510" 
+     class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105">
+    📞 Call Now
+  </a>
+
+  <!-- Phone Number & Schedule -->
+  <div class="flex flex-col sm:flex-row items-center gap-2 text-gray-800 font-medium">
+    <a href="tel:+919905028510" class="text-blue-700 hover:underline"></a>
+    <span class="hidden sm:inline text-gray-500">|</span>
+    <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+  </div>
+</span>
+
             </div>
           </div>
         </div>
@@ -157,22 +401,41 @@
     <!-- ===== Small Features End ===== -->
 
     <!-- ===== About Start ===== -->
-    <section class="ji gp uq 2xl:ud-py-35 pg">
-      <div class="bb ze ki xn wq">
-        <div class="tc wf gg qq">
-          <!-- About Images -->
-          <div class="animate_left xc gn gg jn/2 i">
-            <div>
-              <img src="images/shape-05.svg" alt="Shape" class="h -ud-left-5 x" />
-              <img src="images/about-01.png" alt="About" class="ib" />
-              <img src="images/about-02.png" alt="About" />
-            </div>
-            <div>
-              <img src="images/shape-06.svg" alt="Shape" />
-              <img src="images/about-03.png" alt="About" class="ob gb" />
-              <img src="images/shape-07.svg" alt="Shape" class="bb" />
-            </div>
-          </div>
+    <section class="about-section" aria-label="About images">
+  <div class="container">
+    <div class="row">
+
+      <!-- IMAGES: left side (keeps original file names) -->
+      <div class="image-group" aria-hidden="false">
+        <!-- Column 1 stack -->
+        <div class="stack" role="img" aria-label="Group of images">
+          <!-- decorative shape -->
+          <img src="images/shape-05.svg" alt="" class="shape shape-1" />
+          <!-- main image -->
+          <img src="images/about-01.png" alt="About image 1" class="main-img" />
+          <!-- overlapping smaller -->
+          <img src="images/about-02.png" alt="About image 2" class="secondary-img" />
+        </div>
+
+        <!-- Column 2 stack -->
+        <div class="stack" role="img" aria-label="Decorative images">
+          <img src="images/shape-06.svg" alt="" class="shape shape-2" />
+          <img src="images/about-03.png" alt="About image 3" class="accent-img" />
+          <img src="images/shape-07.svg" alt="" class="shape shape-3" />
+        </div>
+      </div>
+
+      <!-- CONTENT: right side -->
+      <div class="content">
+        <h2>About Our Journey</h2>
+        <p>
+          At Narayan Growthwave, our journey began with a vision to empower businesses through innovative digital marketing and web solutions. From small startups to growing brands, we’ve helped clients achieve measurable success with creativity, strategy, and technology-driven growth.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
           <!-- About Content -->
           <div class="animate_right jn/2">
@@ -374,122 +637,204 @@
     </section>
     <!-- ===== Pricing Table End ===== -->
 
-    <!-- ===== Projects Start ===== -->
-    <section class="pg pj vp mr oj wp nr">
-      <!-- Section Title Start -->
-      <div
-        x-data="{ sectionTitle: `Selected Work`, sectionTitleText: `Campaigns and websites built to drive measurable results.` }">
-        <div class="animate_top bb ze rj ki xn vq">
-          <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
-          </h2>
-          <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      <div class="projects-container">
+    <!-- Header -->
+    <div class="projects-head">
+      <h2 id="projects-heading">Our Featured Projects</h2>
+      <h6 class="projects-sub">We build result-driven websites and digital campaigns Here's a selection of our recent projects with measurable outcomes.</h6>
+    </div>
+
+    <!-- Filters -->
+    <div class="projects-filters" role="tablist" aria-label="Project filters">
+      <button class="filter-btn active" data-filter="*" aria-pressed="true">All</button>
+      <button class="filter-btn" data-filter="web" aria-pressed="false">Web Development</button>
+      <button class="filter-btn" data-filter="marketing" aria-pressed="false">Digital Marketing</button>
+      <button class="filter-btn" data-filter="seo" aria-pressed="false">SEO Campaigns</button>
+      <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">Ecommerce</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Project 1 -->
+      <a href="#" class="project-card" data-category="web ecommerce" data-title="FreshLeaf — eCommerce Redesign" data-desc="Full-stack eCommerce redesign + CRO; 38% uplift in checkout conversions." data-image="images/project-01.png">
+        <span class="project-tag">Web</span>
+        <img loading="lazy" src="images/project-01.png" alt="FreshLeaf eCommerce homepage screenshot">
+        <div class="project-info" aria-hidden="true">
+          <div class="project-meta">
+            <h3 class="project-title">FreshLeaf — eCommerce Redesign</h3>
+            <p class="project-desc">Full-stack redesign + CRO; 38% uplift in checkout conversions.</p>
+          </div>
+          <span class="project-cta" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </span>
         </div>
+      </a>
+
+      <!-- Project 2 -->
+      <a href="#" class="project-card" data-category="marketing" data-title="UrbanStyle — Social Growth" data-desc="Instagram + FB ads campaign that scaled ROAS 4.7x within 90 days." data-image="images/project-02.png">
+        <span class="project-tag">Marketing</span>
+        <img loading="lazy" src="images/project-02.png" alt="UrbanStyle campaign screenshot">
+        <div class="project-info" aria-hidden="true">
+          <div class="project-meta">
+            <h3 class="project-title">UrbanStyle — Social Growth</h3>
+            <p class="project-desc">Instagram & Facebook ads; scaled ROAS 4.7x in 90 days.</p>
+          </div>
+          <span class="project-cta" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- Project 3 -->
+      <a href="#" class="project-card" data-category="seo web" data-title="Elite Interiors — Local SEO" data-desc="Local SEO + content strategy: #1 ranking for 8 local keywords and 60% organic traffic growth." data-image="images/project-03.png">
+        <span class="project-tag">SEO</span>
+        <img loading="lazy" src="images/project-03.png" alt="Elite Interiors website">
+        <div class="project-info" aria-hidden="true">
+          <div class="project-meta">
+            <h3 class="project-title">Elite Interiors — Local SEO</h3>
+            <p class="project-desc">Local SEO & content strategy — 60% organic growth.</p>
+          </div>
+          <span class="project-cta" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+
+      <!-- Project 5 (example) -->
+      <a href="#" class="project-card" data-category="ecommerce marketing" data-title="KitchenJoy — Store + Ads" data-desc="Shopify build + conversion-focused ads; 52% increase in AOV." data-image="images/project-05.png">
+        <span class="project-tag">Ecommerce</span>
+        <img loading="lazy" src="images/project-04.png" alt="KitchenJoy ecommerce">
+        <div class="project-info" aria-hidden="true">
+          <div class="project-meta">
+            <h3 class="project-title">KitchenJoy — Store + Ads</h3>
+            <p class="project-desc">Shopify build + ads — 52% increase in average order value.</p>
+          </div>
+          <span class="project-cta" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Actions -->
+    <div class="projects-actions">
+      <a href="#contact" class="btn-primary">Request a Free Consultation</a>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="pg-modal" id="pgModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="pg-modal-inner" role="document">
+      <button class="modal-close" id="modalClose" aria-label="Close preview">✕</button>
+      <div class="pg-modal-left">
+        <img src="" alt="" id="modalImage">
       </div>
-      <!-- Section Title End -->
-
-      <div class="bb ze ki xn 2xl:ud-px-0 jb" x-data="{filterTab: 1}">
-        <!-- Porject Tab -->
-        <div class="projects-tab _e bb tc uf wf xf cg rg hh rm vk xm si ti fc">
-          <button data-filter="*" @click="filterTab = 1" :class="{ 'gh lk' : filterTab === 1 }"
-            class="project-tab-btn ek rg ml il vi mi">
-            All
-          </button>
-          <button data-filter=".branding" @click="filterTab = 2" :class="{ 'gh lk' : filterTab === 2 }"
-            class="project-tab-btn ek rg ml il vi mi">
-            Branding Strategy
-          </button>
-          <button data-filter=".digital" @click="filterTab = 3" :class="{ 'gh lk' : filterTab === 3 }"
-            class="project-tab-btn ek rg ml il vi mi">
-            Digital Experiences
-          </button>
-          <button data-filter=".ecommerce" @click="filterTab = 4" :class="{ 'gh lk' : filterTab === 4 }"
-            class="project-tab-btn ek rg ml il vi mi">
-            Ecommerce
-          </button>
-        </div>
-
-        <!-- Projects item wrapper -->
-        <div class="projects-wrapper tc -ud-mx-5">
-          <div class="project-sizer"></div>
-          <!-- Project Item -->
-          <div class="project-item wi fb vd jn/2 to/3 branding ecommerce">
-            <div class="c i pg sg z-1">
-              <img src="images/project-01.png" alt="Project" />
-
-              <div class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10">
-                <h4 class="ek tj kk hc">Photo Retouching</h4>
-                <p>Branded Ecommerce</p>
-                <a class="c tc wf xf ie ld rg _g dh ml il ph jm km jc" href="#!">
-                  <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project Item -->
-          <div class="project-item wi fb vd jn/2 to/3 digital">
-            <div class="c i pg sg z-1">
-              <img src="images/project-02.png" alt="Project" />
-
-              <div class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10">
-                <h4 class="ek tj kk hc">Photo Retouching</h4>
-                <p>Branded Ecommerce</p>
-                <a class="c tc wf xf ie ld rg _g dh ml il ph jm km jc" href="#!">
-                  <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project Item -->
-          <div class="project-item wi fb vd jn/2 to/3 branding ecommerce">
-            <div class="c i pg sg z-1">
-              <img src="images/project-04.png" alt="Project" />
-
-              <div class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10">
-                <h4 class="ek tj kk hc">Photo Retouching</h4>
-                <p>Branded Ecommerce</p>
-                <a class="c tc wf xf ie ld rg _g dh ml il ph jm km jc" href="#!">
-                  <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project Item -->
-          <div class="project-item wi fb vd vo/3 digital ecommerce">
-            <div class="c i pg sg z-1">
-              <img src="images/project-03.png" alt="Project" />
-
-              <div class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10">
-                <h4 class="ek tj kk hc">Photo Retouching</h4>
-                <p>Branded Ecommerce</p>
-                <a class="c tc wf xf ie ld rg _g dh ml il ph jm km jc" href="#!">
-                  <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="pg-modal-right">
+        <h3 class="modal-title" id="modalTitle"></h3>
+        <p class="modal-sub" id="modalTagline"></p>
+        <p class="modal-text" id="modalDesc"></p>
+        <p style="margin-top:12px;color:#6b7280;font-size:13px;">Want a project like this? <a href="#contact" style="color:var(--accent);font-weight:700;text-decoration:none;">Talk to us →</a></p>
       </div>
-    </section>
-    <!-- ===== Projects End ===== -->
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      // filtering
+      const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+      const cards = Array.from(document.querySelectorAll('.project-card'));
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          // toggle active states
+          filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+          btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+
+          cards.forEach(card => {
+            const cats = card.dataset.category.split(' ');
+            if(filter === '*' || cats.includes(filter)) {
+              card.style.display = ''; // show
+              card.style.opacity = 0;
+              setTimeout(()=> card.style.opacity=1, 20);
+            } else {
+              card.style.opacity = 0;
+              setTimeout(()=> card.style.display = 'none', 220);
+            }
+          });
+        });
+      });
+
+      // modal/lightbox
+      const modal = document.getElementById('pgModal');
+      const modalImg = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDesc');
+      const modalTagline = document.getElementById('modalTagline');
+      const modalClose = document.getElementById('modalClose');
+
+      function openModal(card){
+        const img = card.dataset.image || card.querySelector('img').src;
+        const title = card.dataset.title || card.querySelector('.project-title').innerText;
+        const desc = card.dataset.desc || card.querySelector('.project-desc').innerText;
+        const tag = card.dataset.category ? card.dataset.category.split(' ')[0].toUpperCase() : '';
+
+        modalImg.src = img;
+        modalImg.alt = title;
+        modalTitle.textContent = title;
+        modalDesc.textContent = desc;
+        modalTagline.textContent = tag;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(){
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+
+      cards.forEach(c => {
+        c.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(c);
+        });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e)=> {
+        if(e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape') closeModal();
+      });
+
+      // graceful initial reveal (optional)
+      window.addEventListener('load', ()=> {
+        document.querySelectorAll('.project-card').forEach((c, i)=> {
+          c.style.transform = 'translateY(10px)';
+          c.style.opacity = 0;
+          setTimeout(()=> { c.style.transform='none'; c.style.opacity=1; c.style.transition='all .6s cubic-bezier(.2,.9,.2,1)'; }, 80 + i*80);
+        });
+      });
+    })();
+  </script>
+</section>
+<!-- ===== Projects End ===== -->
 
     <!-- ===== Testimonials Start ===== -->
     <section class="hj rp hr">
@@ -529,8 +874,8 @@
 
                       <div class="tc yf vf">
                         <div>
-                          <span class="rc ek xj kk wm zb">Rohit Sharma</span>
-                          <span class="rc">Founder — Retail Brand</span>
+                          <span class="rc ek xj kk wm zb">David</span>
+                          <span class="rc">Founder - Retail Brand</span>
                         </div>
 
                         <img class="rk" src="images/brand-light-02.svg" alt="Brand" />
@@ -575,11 +920,11 @@
       <div class="bb ze i va ki xn br">
         <div class="tc uf sn tn xf un gg">
           <div class="animate_top me/5 ln rj">
-            <h2 class="gk vj zp or kk wm hc">785+</h2>
+            <h2 class="gk vj zp or kk wm hc">479+</h2>
             <p class="ek bk aq">Campaigns Launched</p>
           </div>
           <div class="animate_top me/5 ln rj">
-            <h2 class="gk vj zp or kk wm hc">533+</h2>
+            <h2 class="gk vj zp or kk wm hc">267+</h2>
             <p class="ek bk aq">Satisfied Clients</p>
           </div>
           <div class="animate_top me/5 ln rj">
@@ -587,7 +932,7 @@
             <p class="ek bk aq">Leads Generated (Monthly)</p>
           </div>
           <div class="animate_top me/5 ln rj">
-            <h2 class="gk vj zp or kk wm hc">346+</h2>
+            <h2 class="gk vj zp or kk wm hc">36+</h2>
             <p class="ek bk aq">Awards & Recognitions</p>
           </div>
         </div>
@@ -618,22 +963,12 @@
             <img class="tk ml il zl om" src="images/brand-light-02.svg" alt="Clients" />
             <img class="xc sk ml il zl nm" src="images/brand-dark-02.svg" alt="Clients" />
           </a>
-          <a href="#!" class="rc animate_top">
-            <img class="tk ml il zl om" src="images/brand-light-03.svg" alt="Clients" />
-            <img class="xc sk ml il zl nm" src="images/brand-dark-03.svg" alt="Clients" />
-          </a>
-          <a href="#!" class="rc animate_top">
-            <img class="tk ml il zl om" src="images/brand-light-04.svg" alt="Clients" />
-            <img class="xc sk ml il zl nm" src="images/brand-dark-04.svg" alt="Clients" />
-          </a>
+          
           <a href="#!" class="rc animate_top">
             <img class="tk ml il zl om" src="images/brand-light-05.svg" alt="Clients" />
             <img class="xc sk ml il zl nm" src="images/brand-dark-05.svg" alt="Clients" />
           </a>
-          <a href="#!" class="rc animate_top">
-            <img class="tk ml il zl om" src="images/brand-light-06.svg" alt="Clients" />
-            <img class="xc sk ml il zl nm" src="images/brand-dark-06.svg" alt="Clients" />
-          </a>
+          
         </div>
       </div>
     </section>
