@@ -7,22 +7,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Narayan GrowthWave — Digital Marketing & Website Development</title>
    <style>
-    :root{
+     :root{
       --container-width:1200px;
       --gap:24px;
       --accent-shadow: 0 12px 30px rgba(15,23,42,0.12);
       --rounded:16px;
     }
 
-    /* Reset-ish */
+    /* Reset */
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    /* Prevent horizontal overflow globally (safe guard) */
+    body { overflow-x: hidden; }
 
-    /* Section wrapper */
+    /* Section wrapper - clip any overflow so decorative parts won't push page width */
     .about-section{
       padding:48px 20px;
       background: #ffffff;
-      overflow:visible;
+      position:relative;
+      /* crucial: clip any visual overflow that would increase width */
+      overflow: hidden;
     }
 
     .container{
@@ -31,7 +35,6 @@
       padding:0 20px;
     }
 
-    /* Layout for bigger screens: two columns */
     .row{
       display:flex;
       align-items:center;
@@ -42,16 +45,17 @@
 
     /* Image group (left) */
     .image-group{
-      flex:1 1 480px; /* grow, shrink, basis */
+      flex:1 1 480px;
       min-width:280px;
       position:relative;
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:16px;
       align-items:end;
+      /* ensure internal absolutely positioned elements are confined */
+      overflow: visible; /* keep visible for overlapping inside section; section clips outside */
     }
 
-    /* Each stack contains multiple images and shapes */
     .stack{
       position:relative;
       width:100%;
@@ -61,7 +65,7 @@
       justify-content:center;
     }
 
-    /* Base image rules */
+    /* Base image rules - never exceed container width */
     .stack img{
       display:block;
       max-width:100%;
@@ -72,7 +76,6 @@
       transition:transform .35s ease, box-shadow .35s ease;
     }
 
-    /* Specific roles */
     .shape{
       position:absolute;
       width:64px;
@@ -81,37 +84,40 @@
       opacity:.9;
     }
 
+    /* Use clamp to ensure images scale but don't overflow */
     .main-img{
-      width:70%;
+      width:clamp(180px, 50%, 420px);
       z-index:3;
       transform:translateY(-6%);
+      max-width: 100%;
     }
 
+    /* Keep small negative offsets small -- they'll be clipped by section if needed */
     .secondary-img{
-      width:42%;
+      width:clamp(120px, 32%, 320px);
       z-index:2;
       position:absolute;
-      right:-6%;
-      bottom:-4%;
+      right: -2%;   /* reduced negative offset */
+      bottom: -2%;
       transform:rotate(-6deg) scale(.96);
+      max-width: 45%;
     }
 
     .accent-img{
-      width:48%;
+      width:clamp(120px, 36%, 360px);
       z-index:1;
       position:absolute;
-      left:-6%;
-      top:-8%;
+      left: -2%;    /* reduced negative offset */
+      top: -4%;
       transform:rotate(6deg) scale(.98);
       opacity:.98;
+      max-width: 48%;
     }
 
-    /* Decorative shapes positions */
-    .shape.shape-1{ left:-18px; top:-18px; width:72px; transform:rotate(6deg); }
-    .shape.shape-2{ right:6%; top:30%; width:56px; opacity:.8; }
-    .shape.shape-3{ left:6%; bottom:-10px; width:60px; opacity:.7; }
+    .shape.shape-1{ left:6px; top:6px; width:56px; transform:rotate(6deg); }
+    .shape.shape-2{ right:6%; top:30%; width:48px; opacity:.8; }
+    .shape.shape-3{ left:6%; bottom:6px; width:52px; opacity:.7; }
 
-    /* Text column */
     .content{
       flex:1 1 420px;
       min-width:260px;
@@ -120,7 +126,6 @@
     .content h2{ font-size:28px; line-height:1.05; margin-bottom:12px; }
     .content p{ color:#4b5563; line-height:1.6; font-size:15px; }
 
-    /* Hover micro-interaction (desktop) */
     @media (hover: hover) and (min-width: 900px){
       .stack:hover .main-img{ transform:translateY(-10%) scale(1.02); box-shadow: 0 20px 40px rgba(2,6,23,0.14);}
       .stack:hover .secondary-img{ transform:translateY(6%) rotate(-4deg) scale(1.01); }
@@ -130,15 +135,24 @@
     @media (max-width:900px){
       .image-group{ grid-template-columns: 1fr; gap:12px; }
       .main-img{ width:78%; transform:none; margin:0 auto; position:relative; }
-      .secondary-img, .accent-img{ position:relative; right:auto; left:auto; bottom:auto; top:auto; width:46%; transform:none; opacity:1; margin: -16px auto 0; }
-      .shape{ display:none; } /* hide decorative shapes on smaller screens for clarity */
+      .secondary-img, .accent-img{
+        position:relative;
+        right:auto;
+        left:auto;
+        bottom:auto;
+        top:auto;
+        width:46%;
+        transform:none;
+        opacity:1;
+        margin: -16px auto 0;
+      }
+      .shape{ display:none; } /* hide decorative shapes on smaller screens */
       .container{ padding:0 16px; }
       .about-section{ padding:36px 0; }
       .content{ text-align:center; margin-top:8px; }
       .content h2{ font-size:22px; }
     }
 
-    /* Very small phones */
     @media (max-width:420px){
       .about-section{ padding:28px 0; }
       .main-img{ width:86%; }
@@ -405,19 +419,14 @@
   <div class="container">
     <div class="row">
 
-      <!-- IMAGES: left side (keeps original file names) -->
+      <!-- IMAGES -->
       <div class="image-group" aria-hidden="false">
-        <!-- Column 1 stack -->
         <div class="stack" role="img" aria-label="Group of images">
-          <!-- decorative shape -->
           <img src="images/shape-05.svg" alt="" class="shape shape-1" />
-          <!-- main image -->
           <img src="images/about-01.png" alt="About image 1" class="main-img" />
-          <!-- overlapping smaller -->
           <img src="images/about-02.png" alt="About image 2" class="secondary-img" />
         </div>
 
-        <!-- Column 2 stack -->
         <div class="stack" role="img" aria-label="Decorative images">
           <img src="images/shape-06.svg" alt="" class="shape shape-2" />
           <img src="images/about-03.png" alt="About image 3" class="accent-img" />
